@@ -51,6 +51,14 @@ function searchTracks(trackName, callback) {
     request(url, callback);
 }
 
+app.get('/resolveTrack', function(req, res, next) {
+    var text = req.query.text;
+    var trackURI = text.slice(text.lastIndexOf('[') + 1, text.lastIndexOf(']'));
+    var html = '<iframe src="https://embed.spotify.com/?uri=' + trackURI + '" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>';
+
+    res.send({body: html});
+});
+
 app.listen(3000, function() {
     console.log('server running');
 });
