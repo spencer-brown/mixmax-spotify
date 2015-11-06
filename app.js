@@ -67,6 +67,4 @@ app.get('/resolveTrack', function(req, res, next) {
     res.send({body: html});
 });
 
-app.listen(3000, function() {
-    console.log('app listening on port 3000');
-});
+app.listen(process.env.PORT || 3000);
