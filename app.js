@@ -32,10 +32,11 @@ app.get('/searchTracks', function(req, res, next) {
         var formattedResults = _.map(bodyObj.tracks.items, function(item) {
             var name = item.name;
             var artists = _.map(item.artists, function(a) { return a.name; }).join(', ');
+            var uri = item.uri;
 
             return {
                 title: name + ' by ' + artists,
-                text: name
+                text: name + ' by ' + artists + ' [' + uri + ']'
             };
         });
 
