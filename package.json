@@ -9,6 +9,7 @@
   "author": "Spencer Brown",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.7.1",
     "express": "^4.13.3",
     "request": "^2.65.0",
     "underscore": "^1.8.3"

@@ -3,6 +3,14 @@ var app = express();
 
 var request = require('request');
 var _ = require('underscore');
+var cors = require('cors');
+
+var corsOptions = {
+    origin: /^[^.\s]+\.mixmax\.com$/,
+    credentials: true
+};
+
+app.use(cors(corsOptions));
 
 app.get('/', function(req, res, next) {
     res.send('MixMax Spotify');
