@@ -4,7 +4,7 @@
   "description": "Server to respond to Spotify slash commands for MixMax",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
   },
   "author": "Spencer Brown",
   "license": "ISC",
