@@ -10,13 +10,11 @@ var corsOptions = {
     credentials: true
 };
 
-app.use(cors(corsOptions));
-
 app.get('/', function(req, res, next) {
     res.send('MixMax Spotify');
 });
 
-app.get('/searchTracks', function(req, res, next) {
+app.get('/searchTracks', cors(corsOptions), function(req, res, next) {
     var trackName = req.query.text;
 
     searchTracks(trackName, function(error, response, body) {
@@ -59,7 +57,7 @@ function searchTracks(trackName, callback) {
     request(url, callback);
 }
 
-app.get('/resolveTrack', function(req, res, next) {
+app.get('/resolveTrack', cors(corsOptions), function(req, res, next) {
     var text = req.query.text;
     var trackURI = text.slice(text.lastIndexOf('[') + 1, text.lastIndexOf(']'));
     var html = '<iframe src="https://embed.spotify.com/?uri=' + trackURI + '" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>';
