@@ -1,0 +1,11 @@
+{
+  "name": "mixmax-spotify",
+  "version": "0.0.0",
+  "description": "Server to respond to Spotify slash commands for MixMax",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Spencer Brown",
+  "license": "ISC"
+}
