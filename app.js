@@ -20,7 +20,7 @@ app.get('/searchTracks', function(req, res, next) {
         var bodyObj = JSON.parse(body);
 
         // check for empty results
-        if (bodyObj.tracks.items.length === 0) {
+        if (bodyObj.error) {
             var noResultsFound = {
                 title: 'No results found.'
             };
