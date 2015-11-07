@@ -4,6 +4,14 @@ var app = express();
 var request = require('request');
 var _ = require('underscore');
 
+app.use(function (req, res, next) {
+    res.header('Access-Control-Allow-Origin', 'https://compose.mixmax.com');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+    res.header('Access-Control-Allow-Credentials', 'true');
+
+    next();
+});
+
 app.get('/', function(req, res, next) {
     res.send('MixMax Spotify');
 });
