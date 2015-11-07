@@ -40,11 +40,11 @@ app.get('/searchTracks', function(req, res, next) {
         var formattedResults = _.map(bodyObj.tracks.items, function(item) {
             var name = item.name;
             var artists = _.map(item.artists, function(a) { return a.name; }).join(', ');
-            var uri = item.uri;
+            var previewUrl = item.previewUrl;
 
             return {
                 title: name + ' by ' + artists,
-                text: name + ' by ' + artists + ' [' + uri + ']'
+                text: name + ' by ' + artists + ' [' + previewUrl + ']'
             };
         });
 
@@ -61,8 +61,8 @@ function searchTracks(trackName, callback) {
 
 app.get('/resolveTrack', function(req, res, next) {
     var text = req.query.text;
-    var trackURI = text.slice(text.lastIndexOf('[') + 1, text.lastIndexOf(']'));
-    var html = '<iframe src="https://embed.spotify.com/?uri=' + trackURI + '" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>';
+    var previewUrl = text.slice(text.lastIndexOf('[') + 1, text.lastIndexOf(']'));
+    var html = '<video controls="" autoplay="" name="media"><source src="' + previewUrl + '" type="audio/mpeg"></video>';
 
     res.send({body: html});
 });
