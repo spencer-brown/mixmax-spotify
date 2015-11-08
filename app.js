@@ -40,11 +40,11 @@ app.get('/searchTracks', function(req, res, next) {
         var formattedResults = _.map(bodyObj.tracks.items, function(item) {
             var name = item.name;
             var artists = _.map(item.artists, function(a) { return a.name; }).join(', ');
-            var previewUrl = item.previewUrl;
+            var externalURL = item.external_urls.spotify;
 
             return {
                 title: name + ' by ' + artists,
-                text: name + ' by ' + artists + ' [' + previewUrl + ']'
+                text: name + ' by ' + artists + ' [' + externalURL + ']'
             };
         });
 
@@ -60,9 +60,13 @@ function searchTracks(trackName, callback) {
 }
 
 app.get('/resolveTrack', function(req, res, next) {
+    var user = req.query.user;
     var text = req.query.text;
-    var previewUrl = text.slice(text.lastIndexOf('[') + 1, text.lastIndexOf(']'));
-    var html = '<video controls="" autoplay="" name="media"><source src="' + previewUrl + '" type="audio/mpeg"></video>';
+
+    var trackTitle = text.slice(0, text.lastIndexOf(' '));
+    var externalURL = text.slice(text.lastIndexOf('[') + 1, text.lastIndexOf(']'));
+
+    var html = '<a href="' + externalURL + '">' + trackTitle + '</a>';
 
     res.send({body: html});
 });
