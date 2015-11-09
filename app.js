@@ -3,6 +3,10 @@ var app = express();
 
 var request = require('request');
 var _ = require('underscore');
+var jade = require('jade');
+
+// compiled on startup so that it can be reused
+var render = jade.compileFile('views/trackPreview.jade');
 
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', 'https://compose.mixmax.com');
@@ -41,10 +45,11 @@ app.get('/searchTracks', function(req, res, next) {
             var name = item.name;
             var artists = _.map(item.artists, function(a) { return a.name; }).join(', ');
             var externalURL = item.external_urls.spotify;
+            var albumImage = item.album.images[2].url;
 
             return {
                 title: name + ' by ' + artists,
-                text: name + ' by ' + artists + ' [' + externalURL + ']'
+                text: name + ' by ' + artists + '|' + externalURL + '|' + albumImage
             };
         });
 
@@ -60,13 +65,13 @@ function searchTracks(trackName, callback) {
 }
 
 app.get('/resolveTrack', function(req, res, next) {
-    var user = req.query.user;
-    var text = req.query.text;
+    var textArr = req.query.text.split('|');
 
-    var trackTitle = text.slice(0, text.lastIndexOf(' '));
-    var externalURL = text.slice(text.lastIndexOf('[') + 1, text.lastIndexOf(']'));
-
-    var html = '<a href="' + externalURL + '">' + trackTitle + '</a>';
+    var html = render({
+        trackTitle: textArr[0],
+        externalURL: textArr[1],
+        albumImage: textArr[2]
+    });
 
     res.send({body: html});
 });
