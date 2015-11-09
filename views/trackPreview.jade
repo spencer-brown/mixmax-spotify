@@ -1,0 +1,10 @@
+div(style='padding-top: 4px; padding-bottom: 4px;')
+    table(style='width: 100%; border: 1px solid rgb(18,19,20); background-color: rgb(28,28,31); padding: 5px 5px 5px 5px;')
+        tbody
+            tr
+                td(style='width: 64px; padding-top: 4px; padding-right: 14px;')
+                    img(src='#{albumImage}')
+                td
+                    a(href='#{externalURL}' style='color: rgb(223,224,230);') Listen to&nbsp;
+                        != trackTitle
+                        | &nbsp;on Spotify
