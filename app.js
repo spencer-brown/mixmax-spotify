@@ -16,10 +16,6 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.get('/', function(req, res, next) {
-    res.send('MixMax Spotify');
-});
-
 app.get('/searchTracks', function(req, res, next) {
     var trackName = req.query.text;
 
