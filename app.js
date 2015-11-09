@@ -57,9 +57,18 @@ app.get('/searchTracks', function(req, res, next) {
 
 function searchTracks(trackName, callback) {
     var trackNameForUrl = trackName.trim().replace(' ', '+');
-    var url = 'https://api.spotify.com/v1/search?q=' + trackNameForUrl + '&type=track&limit=10';
+    var url = 'https://api.spotify.com/v1/search';
 
-    request(url, callback);
+    request({
+        url: url,
+        qs: {
+            q: trackNameForUrl,
+            type: 'track',
+            limit: 10
+        },
+        timeout: 10 * 1000,
+        json: true
+    }, callback);
 }
 
 app.get('/resolveTrack', function(req, res, next) {
