@@ -27,6 +27,7 @@ app.get('/searchTracks', function(req, res, next) {
         if (error) {
             console.log('error searching tracks', error);
             res.sendStatus(500);
+            return;
         }
 
         var bodyObj = JSON.parse(body);
