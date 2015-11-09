@@ -18,7 +18,12 @@ app.use(function (req, res, next) {
 });
 
 app.get('/searchTracks', function(req, res, next) {
-    var trackName = req.query.text;
+    var trackName = req.query.text.trim();
+
+    if (trackName === '') {
+        res.send([{title: '(enter a track name)', text: ''}]);
+        return;
+    }
 
     searchTracks(trackName, function(error, response, body) {
         if (error) {
@@ -27,19 +32,7 @@ app.get('/searchTracks', function(req, res, next) {
             return;
         }
 
-        var bodyObj = JSON.parse(body);
-
-        // check for empty results
-        if (bodyObj.error) {
-            var noResultsFound = {
-                title: 'No results found.'
-            };
-
-            res.send([noResultsFound]);
-            return;
-        }
-
-        var formattedResults = _.map(bodyObj.tracks.items, function(item) {
+        var formattedResults = _.map(body.tracks.items, function(item) {
             var name = item.name;
             var artists = _.map(item.artists, function(a) { return a.name; }).join(', ');
             var externalURL = item.external_urls.spotify;
@@ -56,7 +49,7 @@ app.get('/searchTracks', function(req, res, next) {
 });
 
 function searchTracks(trackName, callback) {
-    var trackNameForUrl = trackName.trim().replace(' ', '+');
+    var trackNameForUrl = trackName.replace(' ', '+');
     var url = 'https://api.spotify.com/v1/search';
 
     request({
