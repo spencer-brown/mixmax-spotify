@@ -6,5 +6,5 @@ To add `mixmax-spotify` to your Mixmax configuration, find the 'Integrations' se
 * **Name:** `Insert Spotify link`
 * **Command:** `spotify`
 * **Parameter placeholder:** `Track name`
-* **Command Parameter Suggestions API URL:** `https://warm-hamlet-7436.herokuapp.com/searchTracks`
-* **Command Parameter Resolver API URL:** `https://warm-hamlet-7436.herokuapp.com/resolveTrack`
+* **Command Parameter Suggestions API URL:** ~~`https://warm-hamlet-7436.herokuapp.com/searchTracks`~~ _no longer available_
+* **Command Parameter Resolver API URL:** ~~`https://warm-hamlet-7436.herokuapp.com/resolveTrack`~~ _no longer available_
